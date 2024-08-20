@@ -35,8 +35,8 @@ class Pessoa(models.Model):
 class Time(models.Model):
     nome = models.CharField(max_length=100, verbose_name="Nome do Time")
     cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE,verbose_name="Cidade do Time")
-    tecnicoatual = models.ForeignKey(Pessoa, on_delete=models.CASCADE,verbose_name="Tecnico atual do Time")
-    tecncioanterior = models.ForeignKey(Pessoa, on_delete=models.CASCADE,verbose_name="Tecnico anterior do Time")
+    tecnicoatual = models.ForeignKey(Pessoa, related_name='times_tecnicoanterior', on_delete=models.CASCADE,verbose_name="Tecnico atual do Time")
+    tecncioanterior = models.ForeignKey(Pessoa, related_name='times_tecnicoatual', on_delete=models.CASCADE,verbose_name="Tecnico anterior do Time")
     def __str__(self):
         return f"{self.nome}, {self.cidade}, {self.tecnicoatual}, {self.tecncioanterior}"
     class Meta:
@@ -65,8 +65,8 @@ class Campeonato(models.Model):
 
 class Partida(models.Model):
     campeonato = models.ForeignKey(Campeonato, on_delete=models.CASCADE,verbose_name="Campeonato a ser disputado")
-    time1 = models.ForeignKey(Time, on_delete=models.CASCADE,verbose_name="Time mandante")
-    time2 = models.ForeignKey(Time, on_delete=models.CASCADE,verbose_name="Time Visitante")
+    time1 = models.ForeignKey(Time,related_name='partidas_time1', on_delete=models.CASCADE,verbose_name="Time mandante")
+    time2 = models.ForeignKey(Time,related_name='partidas_time2', on_delete=models.CASCADE,verbose_name="Time Visitante")
     placar = models.CharField(max_length=100, verbose_name="Placar da partida")
     def __str__(self):
         return f"{self.campeonato}, {self.time1}, {self.time2}, {self.placar}"
