@@ -20,5 +20,14 @@ from .views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", IndexView.as_view(), name="index")
+    path("", IndexView.as_view(), name="index"),
+    path('cidade.html', CidadesView.as_view(), name='cidade'),
+    path('ocupacao.html',OcupacoesView.as_view(), name='ocupacao'),
+    path('index.html',IndexView.as_view(), name='index'),
+    path('campeonato.html',CampeonatosView.as_view(), name='campeonato'),
+    path('partida.html',PartidasView.as_view(), name='partida'),
+    path('pessoa.html',PessoasView.as_view(), name='pessoa'),
+    path('time.html',TimesView.as_view(), name='time'),
+    path('uniforme.html',UniformesView.as_view(), name='uniforme'),
 ]
+
