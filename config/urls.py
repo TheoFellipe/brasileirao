@@ -29,5 +29,7 @@ urlpatterns = [
     path('pessoa.html',PessoasView.as_view(), name='pessoa'),
     path('time.html',TimesView.as_view(), name='time'),
     path('uniforme.html',UniformesView.as_view(), name='uniforme'),
+    path('avaliacao.html', avaliar, name='avaliar'),
+    path('pagina/', pagina_com_avaliacao, name='pagina_com_avaliacao'),
+    
 ]
-

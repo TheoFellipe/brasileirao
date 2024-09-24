@@ -74,3 +74,11 @@ class Partida(models.Model):
         verbose_name = "Partida"
         verbose_name_plural = "Partidas"
 
+class Avaliacao(models.Model):
+    nota = models.IntegerField(choices=[(i, i) for i in range(1, 6)])  # Avaliações de 1 a 5
+    comentario = models.TextField(blank=True, null=True)
+    data_criacao = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Avaliação {self.nota}'
+

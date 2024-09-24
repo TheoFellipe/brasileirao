@@ -4,7 +4,40 @@ from app.models import *
 from django.views import View
 from django.contrib import messages      
 
+from app.models import Avaliacao
+from app.forms import AvaliacaoForm
 
+def avaliar(request):
+    if request.method == 'POST':
+        form = AvaliacaoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('avaliar')  # Redireciona após a avaliação
+    else:
+        form = AvaliacaoForm()
+
+    # Calcular a média das avaliações
+    avaliacoes = Avaliacao.objects.all()
+    media = avaliacoes.aggregate(models.Avg('nota'))['nota__avg'] or 0
+
+    return render(request, 'avaliacao.html', {'form': form, 'media': media})
+
+from django.shortcuts import render, redirect
+
+def pagina_com_avaliacao(request):
+    if request.method == 'POST':
+        form = AvaliacaoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('pagina_com_avaliacao')  # Redireciona após a avaliação
+    else:
+        form = AvaliacaoForm()
+
+    # Calcular a média das avaliações
+    avaliacoes = Avaliacao.objects.all()
+    media = avaliacoes.aggregate(models.Avg('nota'))['nota__avg'] or 0
+
+    return render(request, 'pagina.html', {'form': form, 'media': media})
 
 
 class IndexView(View):
