@@ -81,4 +81,5 @@ class Avaliacao(models.Model):
 
     def __str__(self):
         return f'Avaliação {self.nota}'
+    
 
